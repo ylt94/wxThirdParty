@@ -18,7 +18,7 @@ class AuthorizerAccessController extends Controller
     }
 
     public function getComponentAuthorizerToken(){
-        //$all=Request::all();
-        return ['success'=>1];
+        $all=Request::all();
+        return ['success'=>1,'all'=>$all];
     }
 }
