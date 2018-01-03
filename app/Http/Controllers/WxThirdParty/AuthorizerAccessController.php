@@ -31,7 +31,7 @@ class AuthorizerAccessController extends Controller
 
     public function getAuthorizerBasicInfo($params){//获取授权方基本信息
         $component_access_token=$this->wx->getComponentAccessToken()['component_access_token'];
-        $authorizer_appid=$patams['authorization_info']['authorizer_appid'];
+        $authorizer_appid=$params['authorization_info']['authorizer_appid'];
         $data=$http->https_post('https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_info?component_access_token='.$component_access_token.'',json_encode([//需要JSON格式！！！
             "component_appid"=>$this->wx->appId,
             "authorizer_appid"=> $authorizer_appid
