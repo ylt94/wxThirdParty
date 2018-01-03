@@ -26,16 +26,10 @@ class WxThirdPartyService{
         return array($format, $get_query_args);
     }
 
-    private function getWxMsgDataByServer(){
-        $url='http://auth.event.wx.yilu.co/api/get-test';
-        $data=file_get_contents($url);
-        return json_decode($data,true);
-    }
-
     public function getComponentVerifyTicket(){
         $pc = new WXBizMsgCrypt($this->token, $this->encodingAesKey, $this->appId);
         $msg = '';
-        $wx_msg_data=$this->getWxMsgDataByServer();
+        $wx_msg_data=$this->getWxMsgData();
         $errCode = $pc->decryptMsg($wx_msg_data[1]['msg_signature'], $wx_msg_data[1]['timestamp'], $wx_msg_data[1]['nonce'], $wx_msg_data[0], $msg);
         $component_verify_ticket='';
         $xml=simplexml_load_string($msg, 'SimpleXMLElement', LIBXML_NOCDATA);

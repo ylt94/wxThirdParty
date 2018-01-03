@@ -17,12 +17,6 @@ class AuthorizerAccessController extends Controller
         return view('test', ['url' => $url]);
     }
 
-    public function getWxMsgData(){
-        $format=Cache::store('file')->get('verify_ticket_post_data');
-        $get_query_args=Cache::store('file')->get('verify_ticket_get_data');
-        return array($format, $get_query_args);
-    }
-
     public function getComponentAuthorizerToken(){
         $all=Request::all();
         return $all;
