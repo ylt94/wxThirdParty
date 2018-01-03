@@ -43,12 +43,16 @@ class WxThirdPartyService{
 
     public function getComponentAccessToken(){
         $http= new HTTP();
-        $component_verify_ticket=$this->getComponentVerifyTicket();
-        $data=$http->https_post('https://api.weixin.qq.com/cgi-bin/component/api_component_token',json_encode([//需要JSON格式！！！
-            "component_appid"=>$this->appId ,
-            "component_appsecret"=> $this->appsecret, 
-            "component_verify_ticket"=> $component_verify_ticket
-        ]));
+        $data['component_access_token']=Cache::store('file')->get('component_access_token');
+        if(!$data['component_access_token']){
+            $component_verify_ticket=$this->getComponentVerifyTicket();
+            $data=$http->https_post('https://api.weixin.qq.com/cgi-bin/component/api_component_token',json_encode([//需要JSON格式！！！
+                "component_appid"=>$this->appId ,
+                "component_appsecret"=> $this->appsecret, 
+                "component_verify_ticket"=> $component_verify_ticket
+            ]));
+            Cache::store('file')->put('component_access_token', $data['component_access_token'], 120);
+        }
         return $data;
     }
 
@@ -63,5 +67,21 @@ class WxThirdPartyService{
             "component_appid"=>$this->appId ,
         ]));
         return $data;
+    }
+
+    public function getAuthorizerToken($params){
+        $http= new HTTP();
+        if(!$params['auth_code']){
+            return ['status'=>-1,'msg'=>'缺少授权码'];
+        }
+        $component_access_token=$this->getComponentAccessToken()['component_access_token'];
+        $auth_code=$params['auth_code'];
+        $data=$http->https_post('https://api.weixin.qq.com/cgi-bin/component/api_query_auth?component_access_token='.$component_access_token.'',json_encode([//需要JSON格式！！！
+            "component_appid"=>$this->appId ,
+            "authorization_code"=> $auth_code
+        ]));
+
+        return $data;
+
     }
 }
