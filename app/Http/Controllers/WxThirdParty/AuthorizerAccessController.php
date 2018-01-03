@@ -17,7 +17,7 @@ class AuthorizerAccessController extends Controller
         //$wx=new WxThirdPartyService();
         $pre_auth_code=$this->wx->getPreAuthCode()['pre_auth_code'];
         $authdomain=env('authdomain').'';
-        $url="https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid=$wx->appId&pre_auth_code=$pre_auth_code&redirect_uri=$authdomain&auth_type=3";
+        $url="https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid=".$this->wx->appId."&pre_auth_code=$pre_auth_code&redirect_uri=$authdomain&auth_type=3";
         return view('test', ['url' => $url]);
     }
 
