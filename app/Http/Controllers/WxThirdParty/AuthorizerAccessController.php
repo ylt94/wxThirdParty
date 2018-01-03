@@ -22,7 +22,7 @@ class AuthorizerAccessController extends Controller
     }
 
     public function getComponentAuthorizerToken(){
-        $all=json_decode(Request::all(),true);
+        $all=Request::all();
         $return=$this->wx->getAuthorizerToken($all);
         return ['success'=>1,'all'=>$return];
     }
