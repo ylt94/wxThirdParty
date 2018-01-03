@@ -25,7 +25,7 @@ class AuthorizerAccessController extends Controller
         $all=Request::all();
         $return=$this->wx->getAuthorizerToken($all);
         //Cache::store('file')->put($return['authorization_info']['authorizer_appid'],$return['authorization_info']['authorizer_access_token'], 120);
-        $this->getAuthorizerBasicInfo($return);
+        return $this->getAuthorizerBasicInfo($return);
         return ['success'=>1,'all'=>$return];
     }
 
