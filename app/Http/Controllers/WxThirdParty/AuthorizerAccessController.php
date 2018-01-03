@@ -21,9 +21,26 @@ class AuthorizerAccessController extends Controller
         return view('test', ['url' => $url]);
     }
 
-    public function getComponentAuthorizerToken(){
+    public function getComponentAuthorizerToken(){//获取authorizer_access_token(接口调用凭据)
         $all=Request::all();
         $return=$this->wx->getAuthorizerToken($all);
+        //Cache::store('file')->put($return['authorization_info']['authorizer_appid'],$return['authorization_info']['authorizer_access_token'], 120);
+        $this->getAuthorizerBasicInfo($return);
         return ['success'=>1,'all'=>$return];
+    }
+
+    public function getAuthorizerBasicInfo($params){//获取授权方基本信息
+        $component_access_token=$this->wx->getComponentAccessToken()['component_access_token'];
+        $authorizer_appid=$patams['authorization_info']['authorizer_appid'];
+        $data=$http->https_post('https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_info?component_access_token='.$component_access_token.'',json_encode([//需要JSON格式！！！
+            "component_appid"=>$this->wx->appId,
+            "authorizer_appid"=> $authorizer_appid
+        ]));
+        var_dump($data);
+        return $data;
+    }
+
+    public function bindXcxTester(){
+
     }
 }

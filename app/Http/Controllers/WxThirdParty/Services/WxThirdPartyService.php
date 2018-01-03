@@ -80,8 +80,9 @@ class WxThirdPartyService{
             "component_appid"=>$this->appId ,
             "authorization_code"=> $auth_code
         ]));
-
+        
         return $data;
 
     }
+
 }
