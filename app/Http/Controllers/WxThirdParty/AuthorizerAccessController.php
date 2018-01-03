@@ -5,6 +5,7 @@ namespace App\Http\Controllers\WxThirdParty;
 use App\Http\Controllers\Controller;
 use Cache;
 use App\Http\Controllers\WxThirdParty\Services\WxThirdPartyService;
+use App\Http\Controllers\WxThirdParty\Services\wxCryptSDK\HTTP;
 use Request;
 
 class AuthorizerAccessController extends Controller
@@ -30,6 +31,7 @@ class AuthorizerAccessController extends Controller
     }
 
     public function getAuthorizerBasicInfo($params){//获取授权方基本信息
+        $http = new HTTP();
         $component_access_token=$this->wx->getComponentAccessToken()['component_access_token'];
         $authorizer_appid=$params['authorization_info']['authorizer_appid'];
         $data=$http->https_post('https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_info?component_access_token='.$component_access_token.'',json_encode([//需要JSON格式！！！
