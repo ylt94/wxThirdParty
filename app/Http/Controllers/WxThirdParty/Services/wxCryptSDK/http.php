@@ -15,7 +15,7 @@ class HTTP{
         // print_r("\n---------https get response---------\n");
         // print_r($data);
         // print_r("\n---------https get end---------\n");
-        return $data;
+        return json_decode($data,true);
     }
 
     public function https_post($url, $post_data){
