@@ -10,11 +10,11 @@ class HTTP{
         curl_setopt($curl, CURLOPT_TIMEOUT, 2);
         curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
         $data = curl_exec($curl);
-        
+        $header=curl_getinfo($data);
         curl_close($curl);
         //显示获得的数据
         // print_r("\n---------https get response---------\n");
-        // var_dump($header);
+         var_dump($header);
         // print_r("\n---------https get end---------\n");
         return json_decode($data,true);
     }

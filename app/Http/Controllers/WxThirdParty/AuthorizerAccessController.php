@@ -28,7 +28,7 @@ class AuthorizerAccessController extends Controller
         //Cache::store('file')->put($return['authorization_info']['authorizer_appid'],$return['authorization_info']['authorizer_access_token'], 120);
         //$this->getAuthorizerBasicInfo($return);
         $data=$this->UploadAuthorizerTemplate($return);
-        return $data;
+        return ['success'=>1,'data'=>$data];
     }
 
     public function getAuthorizerBasicInfo($params){//获取授权方基本信息
