@@ -48,6 +48,7 @@ class AuthorizerAccessController extends Controller
         $ext_json_str=$this->wx->getWxExtJsonString($params);
         $authorizer_appid=$params['authorization_info']['authorizer_appid'];
         $access_token=$params['authorization_info']['authorizer_access_token'];
+        //return json_decode(['ext_json'=>$ext_json_str]);
         $data=$http->https_post('https://api.weixin.qq.com/wxa/commit?access_token='.$access_token.'',json_encode([//需要JSON格式！！！
             'template_id'=>0,
             'ext_json'=>$ext_json_str,

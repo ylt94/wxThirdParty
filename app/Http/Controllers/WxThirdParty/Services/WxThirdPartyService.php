@@ -95,7 +95,7 @@ class WxThirdPartyService{
         
                 }
         }';
-        return json_encode($string);
+        return $string;
     }
 
 }
