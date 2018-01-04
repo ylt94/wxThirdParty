@@ -16,7 +16,7 @@ class HTTP{
         // print_r("\n---------https get response---------\n");
         // var_dump($header);
         // print_r("\n---------https get end---------\n");
-        return $data=mb_convert_encoding($data, 'UTF-8', 'UTF-8,GBK,GB2312,BIG5');
+        return json_decode($data,true);
     }
 
     public function https_post($url, $post_data){
