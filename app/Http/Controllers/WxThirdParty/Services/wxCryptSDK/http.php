@@ -8,15 +8,15 @@ class HTTP{
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_TIMEOUT, 2);
-        curl_setopt($curl, CURLOPT_HEADER, 1);
-        curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($curl, CURLINFO_HEADER_OUT, true);
-        curl_setopt($curl, CURLOPT_NOBODY,true);
+        // curl_setopt($curl, CURLOPT_HEADER, 1);
+        // curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
+        // curl_setopt($curl, CURLINFO_HEADER_OUT, true);
+        // curl_setopt($curl, CURLOPT_NOBODY,true);
         $data = curl_exec($curl);
         curl_close($curl);
         //显示获得的数据
         // print_r("\n---------https get response---------\n");
-         print_r($data);
+         //print_r($data);
         // print_r("\n---------https get end---------\n");
         return json_decode($data,true);
     }
