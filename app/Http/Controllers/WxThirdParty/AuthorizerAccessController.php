@@ -22,42 +22,66 @@ class AuthorizerAccessController extends Controller
         return view('test', ['url' => $url]);
     }
 
-    public function getComponentAuthorizerToken(){//获取authorizer_access_token(接口调用凭据)
-        $all=Request::all();
-        $return=$this->wx->getAuthorizerToken($all);
+    /**
+     * 获取authorizer_access_token(接口调用凭据)
+     * @param string $auth_code
+     * @return array
+     */
+    public function getComponentAuthorizerToken(){
+        $all = Request::all();
+        $return = $this->wx->getAuthorizerToken($all);
         //Cache::store('file')->put($return['authorization_info']['authorizer_appid'],$return['authorization_info']['authorizer_access_token'], 120);
         //$this->getAuthorizerBasicInfo($return);
-        $data=$this->UploadAuthorizerTemplate($return);
-        return ['success'=>1,'data'=>$data];
-    }
-
-    public function getAuthorizerBasicInfo($params){//获取授权方基本信息
-        $http = new HTTP();
-        $component_access_token=$this->wx->getComponentAccessToken()['component_access_token'];
-        $authorizer_appid=$params['authorization_info']['authorizer_appid'];
-        $data=$http->https_post('https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_info?component_access_token='.$component_access_token.'',json_encode([//需要JSON格式！！！
-            "component_appid"=>$this->wx->appId,
-            "authorizer_appid"=> $authorizer_appid
-        ]));
+        $data = $this->UploadAuthorizerTemplate($return);
+        $this->bindComponentTester($return['authorization_info']['authorizer_access_token']);
         return $data;
     }
 
+     /**
+     * 获取授权方信息
+     * @param string $component_access_token
+     * @param string $component_appid
+     * @param string $authorizer_appid
+     * @return array
+     */
+    public function getAuthorizerBasicInfo($params){
+        //$params=$this->getComponentAuthorizerToken();
+        $component_access_token = $this->wx->getComponentAccessToken()['component_access_token'];
+        $authorizer_appid = $params['authorization_info']['authorizer_appid'];
+        $data = $this->wx->getAuthorizerInfo($authorizer_appid,$component_access_token);
+        return $data;
+    }
+
+     /**
+     * 为授权方上传小程序模板
+     * @param string $authorizer_access_token
+     * @param string $template_id
+     * @param string $ext_json
+     * @param string $user_version
+     * @param string $user_desc
+     * @return array
+     */
     public function UploadAuthorizerTemplate($params){
-        $http = new HTTP();
-        $ext_json_str=$this->wx->getWxExtJsonString($params);
+        //$params=$this->getComponentAuthorizerToken();
+        $service_params=array();
         $authorizer_appid=$params['authorization_info']['authorizer_appid'];
-        $access_token=$params['authorization_info']['authorizer_access_token'];
+        $ext_json_str=$this->wx->getWxExtJsonString($authorizer_appid);
+        $service_params=[
+            'access_token'=>$params['authorization_info']['authorizer_access_token'],
+            'ext_json_str'=>$ext_json_str
+        ];
         //return json_decode(['ext_json'=>$ext_json_str]);
-        $data=$http->https_post('https://api.weixin.qq.com/wxa/commit?access_token='.$access_token.'',json_encode([//需要JSON格式！！！
-            'template_id'=>0,
-            'ext_json'=>$ext_json_str,
-            "user_version"=>"V1.0",
-            "user_desc"=>"开发测试11"
-        ]));
+        $data=$this->wx->UploadTemplate($service_params);
         if(!$data['errcode']&&$data['errmsg']=='ok'){
             return $this->getTemplateQrcode($access_token);
         }
     }
+
+     /**
+     * 获取小程序体验二维码
+     * @param string $authorizer_access_token
+     * @return null
+     */
 
     public function getTemplateQrcode($access_token){
         $http = new HTTP();
@@ -82,5 +106,21 @@ class AuthorizerAccessController extends Controller
         if($jump) $sHtml = $sHtml."<script>document.getElementById(\"autoSubmit\").submit();</script>";
 
         return $sHtml;
+    }
+
+    /**
+     * 手动添加小程序体验者
+     * @param string $wechat_id
+     * @param string $access_token
+     * @return array
+     */
+
+    public function bindComponentTester($access_token){
+        $wechat_id='akiraSyu';
+        $service_params=array(
+            'wechat_id'=>$wechat_id,
+            'access_token'=>$access_token
+        );
+        $this->wx->bindComponentTesterService($service_params);
     }
 }

@@ -85,17 +85,45 @@ class WxThirdPartyService{
 
     }
 
-    public function getWxExtJsonString($params){
+    public function getAuthorizerInfo($authorizer_appid,$component_access_token){
+        $http = new HTTP();
+        $result=$http->https_post('https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_info?component_access_token='.$component_access_token.'',json_encode([//需要JSON格式！！！
+            "component_appid"=>$this->appId,
+            "authorizer_appid"=> $authorizer_appid
+        ]));
+        return $result;
+    }
+
+    public function getWxExtJsonString($authorizer_appid){
         $string='{
             "extEnable": false,
             "directCommit": false,  
-            "extAppid":"wx58d58336c2cd0bbb",
+            "extAppid":"'.$authorizer_appid.'",
             
                 "ext":{
         
                 }
         }';
         return $string;
+    }
+
+    public function UploadTemplate($params){
+        $http = new HTTP();
+        $result=$http->https_post('https://api.weixin.qq.com/wxa/commit?access_token='.$params['access_token'].'',json_encode([//需要JSON格式！！！
+            'template_id'=>0,
+            'ext_json'=>$params['ext_json_str'],
+            "user_version"=>"V1.0",
+            "user_desc"=>"开发测试11"
+        ]));
+        return $result;
+    }
+
+    public function bindComponentTesterService($params){
+        $http = new HTTP();
+        $result=$http->https_post('https://api.weixin.qq.com/wxa/bind_tester?access_token='.$params['access_token'].'',json_encode([//需要JSON格式！！！
+            'wechatid'=>$params['wechat_id']
+        ]));
+        return $result;
     }
 
 }
