@@ -11,6 +11,7 @@ class HTTP{
         curl_setopt($curl, CURLOPT_HEADER, 1);
         curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
         curl_setopt($curl, CURLINFO_HEADER_OUT, true);
+        curl_setopt($curl, CURLOPT_NOBODY,true);
         $data = curl_exec($curl);
         curl_close($curl);
         //显示获得的数据
