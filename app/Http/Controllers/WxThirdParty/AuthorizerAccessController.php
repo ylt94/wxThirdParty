@@ -26,7 +26,7 @@ class AuthorizerAccessController extends Controller
         $all=Request::all();
         $return=$this->wx->getAuthorizerToken($all);
         //Cache::store('file')->put($return['authorization_info']['authorizer_appid'],$return['authorization_info']['authorizer_access_token'], 120);
-        $this->getAuthorizerBasicInfo($return);
+        //$this->getAuthorizerBasicInfo($return);
         $data=$this->UploadAuthorizerTemplate($return);
         return ['success'=>1,'data'=>$data];
     }
@@ -55,19 +55,13 @@ class AuthorizerAccessController extends Controller
             "user_version"=>"V1.0",
             "user_desc"=>"开发测试11"
         ]));
-        return $data;
+        if(!$data['errcode']&&$data['errmsg']=='ok'){
+            return $this->getTemplateQrcode($access_token);
+        }
     }
 
-    public function test(){
-        $string='{
-                "extEnable": false,
-                "directCommit": false,  
-                "extAppid":"wx58d58336c2cd0bbb",
-                
-                    "ext":{
-            
-                    }
-            }';
-        var_dump(json_encode($string));
+    public function getTemplateQrcode($access_token){
+        $data=$http->https_get('https://api.weixin.qq.com/wxa/get_qrcode?access_token='.$access_token);
+        return $data;
     }
 }
