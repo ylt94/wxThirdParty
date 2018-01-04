@@ -121,6 +121,7 @@ class AuthorizerAccessController extends Controller
             'wechat_id'=>$wechat_id,
             'access_token'=>$access_token
         );
-        $this->wx->bindComponentTesterService($service_params);
+        $res=$this->wx->bindComponentTesterService($service_params);
+        print_r($res);
     }
 }
