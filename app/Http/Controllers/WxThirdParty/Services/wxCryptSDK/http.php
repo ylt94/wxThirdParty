@@ -10,16 +10,13 @@ class HTTP{
         curl_setopt($curl, CURLOPT_TIMEOUT, 2);
         curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
         $data = curl_exec($curl);
-        // 获得响应结果里的：头大小
-        $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-        // 根据头大小去获取头信息内容
-        $header = substr($data, 0, $headerSize);
+        
         curl_close($curl);
         //显示获得的数据
-        print_r("\n---------https get response---------\n");
-        var_dump($header);
-        print_r("\n---------https get end---------\n");
-        return json_decode($data,true);
+        // print_r("\n---------https get response---------\n");
+        // var_dump($header);
+        // print_r("\n---------https get end---------\n");
+        return $data;
     }
 
     public function https_post($url, $post_data){
