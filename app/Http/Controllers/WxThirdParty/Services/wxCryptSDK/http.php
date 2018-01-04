@@ -15,7 +15,7 @@ class HTTP{
         $data = curl_exec($curl);
         header('Content-type: image/JPEG');
         curl_close($curl);
-        echo $data;
+        //echo $data;
         //显示获得的数据
         // print_r("\n---------https get response---------\n");
          //print_r($data);
