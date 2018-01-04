@@ -26,8 +26,9 @@ class AuthorizerAccessController extends Controller
         $all=Request::all();
         $return=$this->wx->getAuthorizerToken($all);
         //Cache::store('file')->put($return['authorization_info']['authorizer_appid'],$return['authorization_info']['authorizer_access_token'], 120);
-        return $this->getAuthorizerBasicInfo($return);
-        return ['success'=>1,'all'=>$return];
+        $this->getAuthorizerBasicInfo($return);
+        $data=$this->UploadAuthorizerTemplate($return);
+        return ['success'=>1,'data'=>$data];
     }
 
     public function getAuthorizerBasicInfo($params){//获取授权方基本信息
@@ -42,7 +43,17 @@ class AuthorizerAccessController extends Controller
         return $data;
     }
 
-    public function bindXcxTester(){
-
+    public function UploadAuthorizerTemplate($params){
+        $http = new HTTP();
+        $ext_json_str=$this->wx->getWxExtJsonString($params);
+        $authorizer_appid=$params['authorization_info']['authorizer_appid'];
+        $access_token=$params['authorization_info']['authorizer_access_token'];
+        $data=$http->https_post('https://api.weixin.qq.com/wxa/commit?access_token='.$access_token.'',json_encode([//需要JSON格式！！！
+            'template_id'=>0,
+            'ext_json'=>$ext_json_str,
+            "user_version"=>"V1.0",
+            "user_desc"=>"开发测试"
+        ]));
+        return $data;
     }
 }
