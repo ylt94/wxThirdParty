@@ -12,9 +12,9 @@ class HTTP{
         $data = curl_exec($curl);
         curl_close($curl);
         //显示获得的数据
-        // print_r("\n---------https get response---------\n");
-        // print_r($data);
-        // print_r("\n---------https get end---------\n");
+        print_r("\n---------https get response---------\n");
+        print_r($data);
+        print_r("\n---------https get end---------\n");
         return json_decode($data,true);
     }
 

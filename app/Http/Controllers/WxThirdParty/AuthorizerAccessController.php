@@ -39,7 +39,6 @@ class AuthorizerAccessController extends Controller
             "component_appid"=>$this->wx->appId,
             "authorizer_appid"=> $authorizer_appid
         ]));
-        var_dump($data);
         return $data;
     }
 
