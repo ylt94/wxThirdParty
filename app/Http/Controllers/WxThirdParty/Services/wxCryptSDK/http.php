@@ -13,7 +13,7 @@ class HTTP{
         // curl_setopt($curl, CURLINFO_HEADER_OUT, true);
         // curl_setopt($curl, CURLOPT_NOBODY,true);
         $data = curl_exec($curl);
-        header('Content-type: image/JPEG');
+        //header('Content-type: image/JPEG');
         curl_close($curl);
         //echo $data;
         //显示获得的数据
