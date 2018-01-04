@@ -10,6 +10,7 @@ class HTTP{
         curl_setopt($curl, CURLOPT_TIMEOUT, 2);
         curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
         $data = curl_exec($curl);
+        $data = mb_convert_encoding($data, 'utf-8', 'GBK,UTF-8,ASCII');
         curl_close($curl);
         //显示获得的数据
         // print_r("\n---------https get response---------\n");
