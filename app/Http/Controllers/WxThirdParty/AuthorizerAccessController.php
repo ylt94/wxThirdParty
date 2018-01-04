@@ -28,7 +28,7 @@ class AuthorizerAccessController extends Controller
         //Cache::store('file')->put($return['authorization_info']['authorizer_appid'],$return['authorization_info']['authorizer_access_token'], 120);
         //$this->getAuthorizerBasicInfo($return);
         $data=$this->UploadAuthorizerTemplate($return);
-        return ['success'=>1,'data'=>$data];
+        return $data;
     }
 
     public function getAuthorizerBasicInfo($params){//获取授权方基本信息
@@ -60,25 +60,8 @@ class AuthorizerAccessController extends Controller
     }
 
     public function getTemplateQrcode($access_token){
-        $params=[
-            'access_token'=>$access_token
-        ];
-        $data=$this->buildRequestForm($params,'GET','https://api.weixin.qq.com/wxa/get_qrcode?access_token='.$access_token, true);
+        $http = new HTTP();
+        $data=$http->https_get('https://api.weixin.qq.com/wxa/get_qrcode?access_token='.$access_token);
         return $data;
-    }
-
-     protected function buildRequestForm( array $param, $method, $target='',$jump=false) {
-        $sHtml = "<meta http-equiv='Content-Type' content='text/html; charset=utf-8' /><form id='autoSubmit' action='".$target."' method='".$method."'>";
-
-        if ( !empty( $param ) ) {
-                foreach( $param as $key => $value ) {
-                    $sHtml.= "<input type='hidden' name='".$key."' value='".urldecode($value)."'/>";
-                }
-        }
-            $sHtml .= "</form>";
-
-        if($jump) $sHtml = $sHtml."<script>document.getElementById(\"autoSubmit\").submit();</script>";
-
-        return $sHtml;
     }
 }
