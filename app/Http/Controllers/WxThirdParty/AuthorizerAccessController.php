@@ -73,7 +73,7 @@ class AuthorizerAccessController extends Controller
         //return json_decode(['ext_json'=>$ext_json_str]);
         $data=$this->wx->UploadTemplate($service_params);
         if(!$data['errcode']&&$data['errmsg']=='ok'){
-            return $this->getTemplateQrcode($access_token);
+            return $this->getTemplateQrcode($service_params['access_token']);
         }
     }
 
