@@ -89,13 +89,9 @@ class WxThirdPartyService{
         $string='{
             "extEnable": false,
             "directCommit": false,  
-            "extAppid":"'.$params['authorization_info']['authorizer_appid'].'",
+            "extAppid":"wx58d58336c2cd0bbb",
             
                 "ext":{
-        
-                    "attr1":"value1",
-        
-                    "attr2":"value2"
         
                 }
         }';

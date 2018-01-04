@@ -59,44 +59,14 @@ class AuthorizerAccessController extends Controller
 
     public function test(){
         $string='{
-            "extEnable": false,
-            "directCommit": false,  
-            "extAppid":"1111",
-            
+                "extEnable": false,
+                "directCommit": false,  
+                "extAppid":"wx58d58336c2cd0bbb",
+                
                     "ext":{
             
-                        "attr1":"value1",
-            
-                        "attr2":"value2",
-            
-                    },
-            
-                    "extPages":{
-            
-                        "index":{
-            
-                        },
-            
-                        "search/index":{
-            
-                        },
-            
-                    },
-            
-                    "pages":["index","search/index"],		
-            
-                    "window":{
-            
-                    },
-            
-                    "networkTimeout":{
-            
-                    },
-            
-                    "tabBar":{
-            
-                    },
+                    }
             }';
-        var_dump($string);
+        var_dump(json_encode($string));
     }
 }
