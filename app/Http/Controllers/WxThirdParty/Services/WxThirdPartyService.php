@@ -86,7 +86,7 @@ class WxThirdPartyService{
     }
 
     public function getWxExtJsonString($params){
-        return  $string='{
+        $string='{
         "extEnable": false,
         "directCommit": false,  
 		"extAppid":"'.$params['authorization_info']['authorizer_appid'].'",
@@ -125,6 +125,7 @@ class WxThirdPartyService{
         
                 },
         }';
+        return json_encode($string);
     }
 
 }
