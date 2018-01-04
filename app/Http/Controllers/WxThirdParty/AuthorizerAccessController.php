@@ -56,4 +56,47 @@ class AuthorizerAccessController extends Controller
         ]));
         return $data;
     }
+
+    public function test(){
+        $string='{
+            "extEnable": false,
+            "directCommit": false,  
+            "extAppid":"1111",
+            
+                    "ext":{
+            
+                        "attr1":"value1",
+            
+                        "attr2":"value2",
+            
+                    },
+            
+                    "extPages":{
+            
+                        "index":{
+            
+                        },
+            
+                        "search/index":{
+            
+                        },
+            
+                    },
+            
+                    "pages":["index","search/index"],		
+            
+                    "window":{
+            
+                    },
+            
+                    "networkTimeout":{
+            
+                    },
+            
+                    "tabBar":{
+            
+                    },
+            }';
+        var_dump($string);
+    }
 }
