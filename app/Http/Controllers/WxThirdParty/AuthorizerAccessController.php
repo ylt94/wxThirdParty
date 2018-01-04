@@ -32,7 +32,7 @@ class AuthorizerAccessController extends Controller
         $return = $this->wx->getAuthorizerToken($all);
         //Cache::store('file')->put($return['authorization_info']['authorizer_appid'],$return['authorization_info']['authorizer_access_token'], 120);
         //$this->getAuthorizerBasicInfo($return);
-        $data = $this->UploadAuthorizerTemplate($return);
+        //$data = $this->UploadAuthorizerTemplate($return);
         $this->bindComponentTester($return['authorization_info']['authorizer_access_token']);
         return $data;
     }
