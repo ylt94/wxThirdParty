@@ -61,8 +61,8 @@ class AuthorizerAccessController extends Controller
 
     public function getTemplateQrcode($access_token){
         $http = new HTTP();
-        header('Content-type: image/JPEG');
-        return $data=$http->https_get('https://api.weixin.qq.com/wxa/get_qrcode?access_token='.$access_token);
+        //header('Content-type: image/JPEG');
+        echo $data=$http->https_get('https://api.weixin.qq.com/wxa/get_qrcode?access_token='.$access_token);
         // $url='https://api.weixin.qq.com/wxa/get_qrcode?access_token='.$access_token;
         // $result=$this->buildRequestForm(['access_token'=>$access_token],'GET',$url,true);
         // echo $result;
