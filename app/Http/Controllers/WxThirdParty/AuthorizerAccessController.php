@@ -52,7 +52,7 @@ class AuthorizerAccessController extends Controller
             'template_id'=>0,
             'ext_json'=>$ext_json_str,
             "user_version"=>"V1.0",
-            "user_desc"=>"开发测试11"
+            "user_desc"=>"开发测试"
         ]));
         return $data;
     }
