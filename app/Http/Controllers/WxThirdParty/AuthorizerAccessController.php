@@ -65,7 +65,6 @@ class AuthorizerAccessController extends Controller
             $access_token=$result['authorizer_access_token'];
             Cache::store('file')->put('access_token',$result['authorizer_access_token'], 120);
             Cache::store('file')->put('access_refresh_token',$result['authorizer_refresh_token'], 180);
-            print_r($result);
         }
         return $access_token;
      }
@@ -188,7 +187,6 @@ class AuthorizerAccessController extends Controller
 
     public function getTemplateCategory(){
         $access_token=$this->getCacheAccessToken();
-        print_r($access_token);
         return $this->wx->getTemplateCategory($access_token);
     }
 
