@@ -198,6 +198,11 @@ class AuthorizerAccessController extends Controller
      */
 
      public function submitTemplateAudit(){
+        $page_list_result=$this->getTemplatePage();
+        if(!$page_list_result['errcode']&&$page_list_result['errmsg']=='ok'){
+            $page_list=$page_list_result['page_list'];
+        }
 
+        
      }
 }
