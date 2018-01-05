@@ -11,6 +11,7 @@ use Request;
 class AuthorizerAccessController extends Controller
 {
     private $wx;
+    private $auditid= 423128637;
     private $authorizer_appid='wx58d58336c2cd0bbb';
     private $authorizer_access_token='5_wqzEvcMDw03Q28wUY1E6Gjd8nEQUSpFCmoOLsn-YFzfMe3aM8R4xa_ARs8gE_vODsEuufMgvctLR-KdAPPkDwpr5lVGMQB3y8OaNRpmh5QOAi60QsYzjwDSP4iLbHBAM3RZCufRocyzUo6Z8QTWjAKDEHK';
     private $authorizer_refresh_token='refreshtoken@@@ofN63J1K1GBZo4xHA9oNDdfe-HmlIEY4FC7ArNjtnbs';
@@ -197,7 +198,7 @@ class AuthorizerAccessController extends Controller
      * @return array
      */
 
-     public function submitTemplateAudit(){
+    public function submitTemplateAudit(){
         $access_token=$this->getCacheAccessToken();
         $page_list_result=$this->getTemplatePage();
         if(!$page_list_result['errcode']&&$page_list_result['errmsg']=='ok'){
@@ -219,5 +220,18 @@ class AuthorizerAccessController extends Controller
             $item_list[$k]['title']='wechat';
         }
         return $this->wx->submitTemplateAudit($access_token,$item_list);
-     }
+    }
+
+
+    /**
+     * 查询某个指定版本的审核状态
+     * @param array $item_list
+     * @param string $access_token
+     * @return array
+     */
+    public function getAuditStatus(){
+        $access_token=$this->getCacheAccessToken();
+        $auditid=$this->auditid;
+        return $this->wx->getAuditStatus($access_token,$auditid);
+    }
 }

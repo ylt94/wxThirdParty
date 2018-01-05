@@ -157,4 +157,12 @@ class WxThirdPartyService{
         return $result;
     }
 
+    public function getAuditStatus($access_token,$auditid){
+        $http = new HTTP();
+        $result = $http->https_post(' https://api.weixin.qq.com/wxa/get_auditstatus?access_token='.$access_token,json_encode([
+            'auditid'=>$auditid
+        ]));
+        return $result;
+    }
+
 }
