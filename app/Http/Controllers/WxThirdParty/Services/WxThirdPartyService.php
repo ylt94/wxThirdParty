@@ -88,7 +88,7 @@ class WxThirdPartyService{
     public function refreshAccessToken($params){
         $http=new HTTP();
         $component_access_token=$this->getComponentAccessToken()['component_access_token'];
-        $result=$http->https_post('https:// api.weixin.qq.com /cgi-bin/component/api_authorizer_token?component_access_token='.$component_access_token,json_decode([
+        $result=$http->https_post('https:// api.weixin.qq.com /cgi-bin/component/api_authorizer_token?component_access_token='.$component_access_token,json_encode([
             'component_appid'=>$this->appId,
             'authorizer_appid'=>$params['authorizer_appid'],
             'authorizer_refresh_token'=>$params['access_refresh_token']
