@@ -16,4 +16,4 @@ use Illuminate\Http\Request;
 Route::post('/accept-wx-verify-ticket', 'WxThirdParty\VerifyTicketController@saveVerifyTicket');
 Route::any('/get-component-login-page', 'WxThirdParty\AuthorizerAccessController@getComponentLoginPage');
 Route::any('/get-component-authorizer-token', 'WxThirdParty\AuthorizerAccessController@getComponentAuthorizerToken');
-Route::any('/get-test', 'WxThirdParty\AuthorizerAccessController@test');
+Route::any('/get-test', 'WxThirdParty\AuthorizerAccessController@getTemplatePage');
