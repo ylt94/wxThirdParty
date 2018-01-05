@@ -188,6 +188,7 @@ class AuthorizerAccessController extends Controller
 
     public function getTemplateCategory(){
         $access_token=$this->getCacheAccessToken();
+        print_r($access_token);
         return $this->wx->getTemplateCategory($access_token);
     }
 
