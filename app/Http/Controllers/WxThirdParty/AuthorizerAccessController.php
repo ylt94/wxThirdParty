@@ -204,7 +204,7 @@ class AuthorizerAccessController extends Controller
             $page_list=$page_list_result['page_list'];
         }
 
-        $category_list_result=$this->getTemplatePage();
+        $category_list_result=$this->getTemplateCategory();
         if(!$category_list_result['errcode']&&$category_list_result['errmsg']=='ok'){
             $category_list=$category_list_result['category_list'];
         }
