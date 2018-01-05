@@ -153,7 +153,7 @@ class WxThirdPartyService{
         $http = new HTTP();
         $result = $http->https_post('https://api.weixin.qq.com/wxa/submit_audit?access_token='.$access_token,json_encode([
             'item_list'=>$item_list
-        ]));
+        ],JSON_UNESCAPED_UNICODE));
         return $result;
     }
 
