@@ -218,7 +218,6 @@ class AuthorizerAccessController extends Controller
             $item_list[$k]['second_id']=$category_list[0]['second_id'];
             $item_list[$k]['title']='wechat';
         }
-        return $item_list;
         return $this->wx->submitTemplateAudit($access_token,$item_list);
      }
 }
