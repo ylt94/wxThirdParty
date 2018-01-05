@@ -200,6 +200,7 @@ class AuthorizerAccessController extends Controller
      public function submitTemplateAudit(){
         $access_token=$this->getCacheAccessToken();
         $page_list_result=$this->getTemplatePage();
+        return  $page_list_result;
         if(!$page_list_result['errcode']&&$page_list_result['errmsg']=='ok'){
             $page_list=$page_list_result['page_list'];
         }
