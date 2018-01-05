@@ -208,8 +208,8 @@ class AuthorizerAccessController extends Controller
             $category_list=$category_list_result['category_list'];
         }
 
-        // foreach($page_list as &$item){
+        foreach($page_list as &$item){
 
-        // }
+        }
      }
 }
