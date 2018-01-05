@@ -17,7 +17,7 @@ Route::post('/accept-wx-verify-ticket', 'WxThirdParty\VerifyTicketController@sav
 Route::any('/get-component-login-page', 'WxThirdParty\AuthorizerAccessController@getComponentLoginPage');
 Route::any('/get-component-authorizer-token', 'WxThirdParty\AuthorizerAccessController@getComponentAuthorizerToken');
 
-Route::any('/get-refresh-access_token', 'WxThirdParty\AuthorizerAccessController@getRefreshAccessToken');
+Route::any('/get-cache-access-token', 'WxThirdParty\AuthorizerAccessController@getCacheAccessToken');
 Route::any('/get-template-category', 'WxThirdParty\AuthorizerAccessController@getTemplateCategory');
 Route::any('/get-template-page', 'WxThirdParty\AuthorizerAccessController@getTemplatePage');
 
