@@ -171,4 +171,10 @@ class WxThirdPartyService{
         return $result;
     }
 
+    public function releaseAuditTemplate($access_token){
+        $http = new HTTP();
+        $result = $http->https_post('https://api.weixin.qq.com/wxa/release?access_token='.$access_token,json_encode([]));
+        return $result;
+    }
+
 }

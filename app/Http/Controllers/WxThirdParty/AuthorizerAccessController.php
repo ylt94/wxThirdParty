@@ -244,4 +244,14 @@ class AuthorizerAccessController extends Controller
         $access_token=$this->getCacheAccessToken();
         return $this->wx->getLatestAuditStatus($access_token);
     }
+
+     /**
+     * 发布已通过审核的小程序
+     * @param string $access_token
+     * @return array
+     */
+    public function releaseAuditTemplate(){
+        $access_token=$this->getCacheAccessToken();
+        return $this->wx->releaseAuditTemplate($access_token);
+    }
 }
