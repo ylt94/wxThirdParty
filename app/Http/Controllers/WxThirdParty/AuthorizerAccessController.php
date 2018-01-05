@@ -212,10 +212,10 @@ class AuthorizerAccessController extends Controller
         foreach($page_list as $k => $item){
             $item_list[$k]['address']=$item;
             $item_list[$k]['tag']='test';
-            $item_list[$k]['first_class']=$category_lis[0]['first_class'];
-            $item_list[$k]['second_class']=$category_lis[0]['second_class'];
-            $item_list[$k]['first_id']=$category_lis[0]['first_id'];
-            $item_list[$k]['second_id']=$category_lis[0]['second_id'];
+            $item_list[$k]['first_class']=$category_list[0]['first_class'];
+            $item_list[$k]['second_class']=$category_list[0]['second_class'];
+            $item_list[$k]['first_id']=$category_list[0]['first_id'];
+            $item_list[$k]['second_id']=$category_list[0]['second_id'];
             $item_list[$k]['title']='wechat';
         }
 
