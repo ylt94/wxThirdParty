@@ -140,13 +140,13 @@ class WxThirdPartyService{
     public function getTemplatePage($access_token){
         $http = new HTTP();
         $result=$http->https_get('https://api.weixin.qq.com/wxa/get_page?access_token='.$access_token);
-        return $result;
+        return json_decode($result,true);
     }
 
     public function getTemplateCategory($access_token){
         $http = new HTTP();
         $result=$http->https_get('https://api.weixin.qq.com/wxa/get_category?access_token='.$access_token);
-        return $result;
+        return json_decode($result,true);
     }
 
     public function submitTemplateAudit($access_token,$item_list){
