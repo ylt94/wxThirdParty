@@ -85,6 +85,17 @@ class WxThirdPartyService{
 
     }
 
+    public function refreshAccessToken($params){
+        $http=new HTTP();
+        $component_access_token=$this->getComponentAccessToken()['component_access_token'];
+        $result=$htpp->https_post('https:// api.weixin.qq.com /cgi-bin/component/api_authorizer_token?component_access_token='.$component_access_token,json_decode([
+            'component_appid'=>$this->appId,
+            'authorizer_appid'=>$params['authorizer_appid'],
+            'authorizer_refresh_token'=>$params['access_refresh_token']
+        ]));
+        return $result;
+    }
+
     public function getAuthorizerInfo($authorizer_appid,$component_access_token){
         $http = new HTTP();
         $result=$http->https_post('https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_info?component_access_token='.$component_access_token.'',json_encode([//需要JSON格式！！！
@@ -120,9 +131,21 @@ class WxThirdPartyService{
 
     public function bindComponentTesterService($params){
         $http = new HTTP();
-        $result=$http->https_post('https://api.weixin.qq.com/wxa/bind_tester?access_token='.$params['access_token'].'',json_encode([//需要JSON格式！！！
+        $result=$http->https_post('https://api.weixin.qq.com/wxa/bind_tester?access_token='.$params['access_token'],json_encode([//需要JSON格式！！！
             'wechatid'=>$params['wechat_id']
         ]));
+        return $result;
+    }
+
+    public function getTemplatePage($access_token){
+        $http = new HTTP();
+        $result=$http->https_get('https://api.weixin.qq.com/wxa/get_page?access_token='.$access_token);
+        return $result;
+    }
+
+    public function getTemplateCategory($access_token){
+        $http = new HTTP();
+        $result=$http->https_get('https://api.weixin.qq.com/wxa/get_category?access_token='.$access_token);
         return $result;
     }
 

@@ -11,6 +11,9 @@ use Request;
 class AuthorizerAccessController extends Controller
 {
     private $wx;
+    private $authorizer_appid='wx58d58336c2cd0bbb';
+    private $authorizer_access_token='5_MUPb8LS-3HwVT2W4UIO3IchvWC7x-RZQT44AknwQNyjeco9FsPNnpN0p9-3IEMPBrb1T-tQn0drPpHXp7LtVu-vFkEdIFmiYz_MMZBbiu-BZXd1DXHujjpuXYO1Xz5Ee0FEJ7PheytdUA6kXJIJhAFDZYZ';
+    private $authorizer_refresh_token='refreshtoken@@@EX0SJnF0jQJ_4gjMsG5lZnKTS6s-VV7ZZ-AXQUMlT8Q';
     public function __construct(){
         $this->wx=new WxThirdPartyService();
     }
@@ -23,19 +26,58 @@ class AuthorizerAccessController extends Controller
     }
 
     /**
-     * 获取authorizer_access_token(接口调用凭据)
+     * 获取authorizer_access_token(授权方接口调用凭据，扫码授权回调API)
      * @param string $auth_code
      * @return array
      */
     public function getComponentAuthorizerToken(){
         $all = Request::all();
         $return = $this->wx->getAuthorizerToken($all);
-        //Cache::store('file')->put($return['authorization_info']['authorizer_appid'],$return['authorization_info']['authorizer_access_token'], 120);
+        //保存刷新令牌,授权方appid(sql)
+        /* 
+         ***************
+        */
+        $access_token_cache_name='access_token';
+        Cache::store('file')->put($access_token_cache_name,$return['authorization_info']['authorizer_access_token'], 120);
+        Cache::store('file')->put('access_refresh_token',$result['authorizer_refresh_token'],180);
         //$this->getAuthorizerBasicInfo($return);
         //$data = $this->UploadAuthorizerTemplate($return);
         //$this->bindComponentTester($return['authorization_info']['authorizer_access_token']);
         return $return;
     }
+
+    /**
+     * 获取authorizer_access_token(授权方接口调用凭据，本地缓存的token)
+     * @param string $user_id ?
+     * @return string
+     */
+
+     public function getCacheAccessToken(){
+        $access_token=Cache::store('file')->get('access_token');
+        if(!$access_token){
+            $access_refresh_token=Cache::store('file')->get('access_refresh_token');
+            $params=array(
+                'authorizer_appid'=>$this->authorizer_appid,
+                'access_refresh_token'=>$access_refresh_token
+            );
+            $result=$this->getRefreshAccessToken($params);
+            $access_token=$result['authorizer_access_token'];
+            Cache::store('file')->put('access_token',$result['authorizer_access_token'], 120);
+            Cache::store('file')->put('access_refresh_token',$result['authorizer_refresh_token'], 180);
+        }
+        return $access_token;
+     }
+
+    /**
+     * 获取authorizer_access_token(授权方接口调用凭据,过期刷新)
+     * @param string $authorizer_refresh_token
+     * @param string $authorizer_appid
+     * @return string
+     */
+    
+     public function getRefreshAccessToken($params){
+        return $this->wx->refreshAccessToken($params);
+     }
 
      /**
      * 获取授权方信息
@@ -131,7 +173,30 @@ class AuthorizerAccessController extends Controller
      * @return array
      */
 
-     public function getTemplatePage(){
-        $access_token=$this->wx->getComponentAuthorizerToken();
+    public function getTemplatePage(){
+        $access_token=$this->getCacheAccessToken();
+        return $this->wx->getTemplatePage($access_token);
+    }
+
+     /**
+     * 获取授权小程序帐号的可选类目
+     * @param string $access_token
+     * @return array
+     */
+
+    public function getTemplateCategory(){
+        $access_token=$this->getCacheAccessToken();
+        return $this->wx->getTemplateCategory($access_token);
+    }
+
+    /**
+     * 将第三方提交的代码包提交审核
+     * @param array $item_list
+     * @param string $access_token
+     * @return array
+     */
+
+     public function submitTemplateAudit(){
+        
      }
 }
