@@ -21,3 +21,5 @@ Route::any('/get-cache-access-token', 'WxThirdParty\AuthorizerAccessController@g
 Route::any('/get-template-category', 'WxThirdParty\AuthorizerAccessController@getTemplateCategory');
 Route::any('/get-template-page', 'WxThirdParty\AuthorizerAccessController@getTemplatePage');
 
+Route::any('/submit-template-audit', 'WxThirdParty\AuthorizerAccessController@submitTemplateAudit');
+

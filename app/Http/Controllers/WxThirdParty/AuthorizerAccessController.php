@@ -198,6 +198,7 @@ class AuthorizerAccessController extends Controller
      */
 
      public function submitTemplateAudit(){
+        $access_token=$this->getCacheAccessToken();
         $page_list_result=$this->getTemplatePage();
         if(!$page_list_result['errcode']&&$page_list_result['errmsg']=='ok'){
             $page_list=$page_list_result['page_list'];
@@ -207,9 +208,17 @@ class AuthorizerAccessController extends Controller
         if(!$category_list_result['errcode']&&$category_list_result['errmsg']=='ok'){
             $category_list=$category_list_result['category_list'];
         }
-
-        foreach($page_list as &$item){
-
+        $item_list=array();
+        foreach($page_list as $k => $item){
+            $item_list[$k]['address']=$item;
+            $item_list[$k]['tag']='test';
+            $item_list[$k]['first_class']=$category_lis[0]['first_class'];
+            $item_list[$k]['second_class']=$category_lis[0]['second_class'];
+            $item_list[$k]['first_id']=$category_lis[0]['first_id'];
+            $item_list[$k]['second_id']=$category_lis[0]['second_id'];
+            $item_list[$k]['title']='wechat';
         }
+
+        return $this->wx->submitTemplateAudit($access_token,$item_list);
      }
 }

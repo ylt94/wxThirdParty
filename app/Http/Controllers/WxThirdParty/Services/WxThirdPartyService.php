@@ -149,4 +149,12 @@ class WxThirdPartyService{
         return $result;
     }
 
+    public function submitTemplateAudit($access_token,$item_list){
+        $http = new HTTP();
+        $result = $http->https_post('https://api.weixin.qq.com/wxa/submit_audit?access_token='.$access_token,json_encode([
+            'item_list'=>$item_list
+        ]));
+        return $result;
+    }
+
 }
