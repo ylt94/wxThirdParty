@@ -12,8 +12,8 @@ class AuthorizerAccessController extends Controller
 {
     private $wx;
     private $authorizer_appid='wx58d58336c2cd0bbb';
-    private $authorizer_access_token='5_MUPb8LS-3HwVT2W4UIO3IchvWC7x-RZQT44AknwQNyjeco9FsPNnpN0p9-3IEMPBrb1T-tQn0drPpHXp7LtVu-vFkEdIFmiYz_MMZBbiu-BZXd1DXHujjpuXYO1Xz5Ee0FEJ7PheytdUA6kXJIJhAFDZYZ';
-    private $authorizer_refresh_token='refreshtoken@@@EX0SJnF0jQJ_4gjMsG5lZnKTS6s-VV7ZZ-AXQUMlT8Q';
+    private $authorizer_access_token='5_wqzEvcMDw03Q28wUY1E6Gjd8nEQUSpFCmoOLsn-YFzfMe3aM8R4xa_ARs8gE_vODsEuufMgvctLR-KdAPPkDwpr5lVGMQB3y8OaNRpmh5QOAi60QsYzjwDSP4iLbHBAM3RZCufRocyzUo6Z8QTWjAKDEHK';
+    private $authorizer_refresh_token='refreshtoken@@@ofN63J1K1GBZo4xHA9oNDdfe-HmlIEY4FC7ArNjtnbs';
     public function __construct(){
         $this->wx=new WxThirdPartyService();
     }
@@ -43,6 +43,7 @@ class AuthorizerAccessController extends Controller
         //$this->getAuthorizerBasicInfo($return);
         //$data = $this->UploadAuthorizerTemplate($return);
         //$this->bindComponentTester($return['authorization_info']['authorizer_access_token']);
+        return $this->getTemplatePage();
         return $return;
     }
 
