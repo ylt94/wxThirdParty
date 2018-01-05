@@ -32,9 +32,9 @@ class AuthorizerAccessController extends Controller
         $return = $this->wx->getAuthorizerToken($all);
         //Cache::store('file')->put($return['authorization_info']['authorizer_appid'],$return['authorization_info']['authorizer_access_token'], 120);
         //$this->getAuthorizerBasicInfo($return);
-        $data = $this->UploadAuthorizerTemplate($return);
-        $this->bindComponentTester($return['authorization_info']['authorizer_access_token']);
-        return $data;
+        //$data = $this->UploadAuthorizerTemplate($return);
+        //$this->bindComponentTester($return['authorization_info']['authorizer_access_token']);
+        return $return;
     }
 
      /**
@@ -124,4 +124,14 @@ class AuthorizerAccessController extends Controller
         $res=$this->wx->bindComponentTesterService($service_params);
         print_r($res);
     }
+
+    /**
+     * 获取小程序的第三方提交代码的页面配置
+     * @param string $access_token
+     * @return array
+     */
+
+     public function getTemplatePage(){
+        $access_token=$this->wx->getComponentAuthorizerToken();
+     }
 }
