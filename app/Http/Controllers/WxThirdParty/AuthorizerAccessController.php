@@ -39,7 +39,7 @@ class AuthorizerAccessController extends Controller
         */
         $access_token_cache_name='access_token';
         Cache::store('file')->put($access_token_cache_name,$return['authorization_info']['authorizer_access_token'], 120);
-        Cache::store('file')->put('access_refresh_token',$return['authorizer_refresh_token'],180);
+        Cache::store('file')->put('access_refresh_token',$return['authorization_info']['authorizer_refresh_token'],180);
         //$this->getAuthorizerBasicInfo($return);
         //$data = $this->UploadAuthorizerTemplate($return);
         //$this->bindComponentTester($return['authorization_info']['authorizer_access_token']);
