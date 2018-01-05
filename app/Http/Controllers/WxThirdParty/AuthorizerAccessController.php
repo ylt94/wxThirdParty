@@ -225,7 +225,7 @@ class AuthorizerAccessController extends Controller
 
     /**
      * 查询某个指定版本的审核状态
-     * @param array $item_list
+     * @param array $auditid
      * @param string $access_token
      * @return array
      */
@@ -233,5 +233,15 @@ class AuthorizerAccessController extends Controller
         $access_token=$this->getCacheAccessToken();
         $auditid=$this->auditid;
         return $this->wx->getAuditStatus($access_token,$auditid);
+    }
+
+    /**
+     * 查询最新一次提交的审核状态
+     * @param string $access_token
+     * @return array
+     */
+    public function getLatestAuditStatus(){
+        $access_token=$this->getCacheAccessToken();
+        return $this->wx->getLatestAuditStatus($access_token);
     }
 }

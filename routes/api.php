@@ -25,3 +25,5 @@ Route::any('/submit-template-audit', 'WxThirdParty\AuthorizerAccessController@su
 
 Route::any('/get-audit-status', 'WxThirdParty\AuthorizerAccessController@getAuditStatus');
 
+Route::any('/get-last-audit-status', 'WxThirdParty\AuthorizerAccessController@getLatestAuditStatus');
+
