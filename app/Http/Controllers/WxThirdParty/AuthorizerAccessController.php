@@ -33,6 +33,7 @@ class AuthorizerAccessController extends Controller
      */
     public function getComponentAuthorizerToken(){
         $all = Request::all();
+        return $all;
         $return = $this->wx->getAuthorizerToken($all);
         //保存刷新令牌,授权方appid(sql)
         /* 
