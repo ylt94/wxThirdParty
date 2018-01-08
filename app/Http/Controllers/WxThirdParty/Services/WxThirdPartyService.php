@@ -137,6 +137,14 @@ class WxThirdPartyService{
         return $result;
     }
 
+    public function unbindComponentTesterService($params){
+        $http = new HTTP();
+        $result=$http->https_post('https://api.weixin.qq.com/wxa/unbind_tester?access_token='.$params['access_token'],json_encode([//需要JSON格式！！！
+            'wechatid'=>$params['wechat_id']
+        ]));
+        return $result;
+    }
+
     public function getTemplatePage($access_token){
         $http = new HTTP();
         $result=$http->https_get('https://api.weixin.qq.com/wxa/get_page?access_token='.$access_token);

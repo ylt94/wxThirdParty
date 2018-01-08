@@ -170,6 +170,23 @@ class AuthorizerAccessController extends Controller
     }
 
     /**
+     * 解除绑定小程序体验者
+     * @param string $wechat_id
+     * @param string $access_token
+     * @return array
+     */
+
+    public function unbindComponentTester($access_token){
+        $wechat_id='akiraSyu';
+        $service_params=array(
+            'wechat_id'=>$wechat_id,
+            'access_token'=>$access_token
+        );
+        $res=$this->wx->unbindComponentTesterService($service_params);
+        print_r($res);
+    }
+
+    /**
      * 获取小程序的第三方提交代码的页面配置
      * @param string $access_token
      * @return array
