@@ -33,7 +33,6 @@ class AuthorizerAccessController extends Controller
      */
     public function getComponentAuthorizerToken(){
         $all = Request::all();
-        return $all;
         $return = $this->wx->getAuthorizerToken($all);
         //保存刷新令牌,授权方appid(sql)
         /* 
@@ -45,7 +44,7 @@ class AuthorizerAccessController extends Controller
         //$this->getAuthorizerBasicInfo($return);
         //$data = $this->UploadAuthorizerTemplate($return);
         //$this->bindComponentTester($return['authorization_info']['authorizer_access_token']);
-        return $this->getTemplatePage();
+        //return $this->getTemplatePage();
         return $return;
     }
 
